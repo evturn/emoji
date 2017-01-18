@@ -59,7 +59,7 @@ class App extends Component {
     return Object.keys(used)
       .reduce((acc, x) => [used[x]].concat(acc), [])
       .sort((a, b) => b.clicks - a.clicks)
-      .filter((_, i) => i < 14)
+      .filter((_, i) => i < 12)
   }
 
   render() {
@@ -68,13 +68,15 @@ class App extends Component {
     return (
       <div className={css.root}>
         <div className={css.wrap}>
-          <Picker
-            onClick={this.handleSelection}
-            loading={loading}
-            items={showing}>
-            <LoadMoreButton onClick={this.loadMore} done={done} />
-          </Picker>
-          <FrequentlyUsed items={frequentlyUsed} />
+          <div className={css.content}>
+            <Picker
+              onClick={this.handleSelection}
+              loading={loading}
+              items={showing}>
+              <LoadMoreButton onClick={this.loadMore} done={done} />
+            </Picker>
+            <FrequentlyUsed items={frequentlyUsed} />
+          </div>
         </div>
       </div>
     )

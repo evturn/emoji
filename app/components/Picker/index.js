@@ -1,5 +1,6 @@
 import React from 'react'
 import LoadingIndicator from 'components/LoadingIndicator'
+import BoxHeader from 'components/BoxHeader'
 import css from './style.css'
 
 const Picker = ({ loading, items, onClick, children }) => {
@@ -7,14 +8,15 @@ const Picker = ({ loading, items, onClick, children }) => {
     <div className={css.root}>
       {loading
         ? <LoadingIndicator />
-        : <div className={css.items}>
-            {items.map(x =>
-              <img
-                onClick={_ => onClick(x)}
-                src={x.src}
-                key={x.id}
-                className={css.img} />)}
-            {children}
+        : <div className={css.picker}>
+            <BoxHeader text='All' />
+            <div className={css.items}>
+              {items.map(x =>
+                <div onClick={_ => onClick(x)} key={x.id} className={css.item}>
+                  <img src={x.src} className={css.img} />
+                </div>)}
+              {children}
+            </div>
           </div>}
     </div>
   )

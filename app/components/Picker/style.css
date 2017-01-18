@@ -1,22 +1,30 @@
 .root {
   position: relative;
-  border: 1px solid #ccc;
-  height: 320px;
-  width: 320px;
   margin: 0 auto;
-  overflow-y: scroll;
-  text-align: center;
-  border-radius: 2px;
-  background-color: #fff;
-  padding: 10px 15px;
+  height: 370px;
+  text-align: left;
+  overflow: hidden;
 }
 
 .items {
-  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  height: 320px;
+  padding: 15px;
+  overflow-y: scroll;
+}
+
+.item {
+  width: 16.6666666666%;
 }
 
 .img {
   height: 35px;
   width: 35px;
   margin: 5px;
+}
+
+.img:hover {
+  transform: scale(1.2);
 }
