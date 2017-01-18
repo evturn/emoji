@@ -29,8 +29,8 @@ export class Picker extends Component {
     })
   }
 
-  handleSelection = id => {
-    this.props.handleSelection(id)
+  handleSelection = emoji => {
+    this.props.handleSelection(emoji)
   }
 
   render() {
@@ -41,7 +41,7 @@ export class Picker extends Component {
           ? 'Loading...'
           : showing.map(x =>
               <img
-                onClick={_ => this.handleSelection(x.id)}
+                onClick={_ => this.handleSelection(x)}
                 src={x.src}
                 key={x.id}
                 className={css.img} />)}

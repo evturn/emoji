@@ -1,0 +1,26 @@
+.root {
+  border: 1px solid #ccc;
+  height: 130px;
+  width: 320px;
+  margin: 0 auto;
+  overflow-y: scroll;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #fff;
+  padding: 15px;
+}
+
+.img {
+  height: 35px;
+  width: 35px;
+  margin: 5px;
+}
+
+.item {
+  display: inline-block;
+  text-align: center;
+}
+
+.num {
+  font-size: 12px;
+}

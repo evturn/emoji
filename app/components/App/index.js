@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import Picker from 'components/Picker'
+import Frequently from 'components/Frequently'
 import css from './style.css'
 
 class App extends Component {
   state = {
     emojiMap: {},
     emojiList: [],
-    frequently: {},
+    used: {},
   }
 
   componentDidMount() {
@@ -23,25 +24,37 @@ class App extends Component {
     })
   }
 
-  handleSelection = id => {
-    const { emojiMap, frequently } = this.state
-    const frequent = frequently[id]
+  handleSelection = emoji => {
+    const { emojiMap, used } = this.state
+    const recorded = used[emoji.id]
 
     this.setState({
-      frequently: {
-        ...frequently,
-        [id]: frequent ? frequent + 1 : 1
+      used: {
+        ...used,
+        [emoji.id]: {
+          ...emoji,
+          clicks: recorded ? recorded.clicks + 1 : 1
+        }
       }
     })
   }
 
   render() {
-    const { emojiList, frequently } = this.state
+    const { emojiList, used } = this.state
+    const frequently = Object.keys(used)
+      .reduce((acc, x) => [used[x]].concat(acc), [])
+      .sort((a, b) => b.clicks - a.clicks)
+      .filter((x, i) => i < 14)
+
     return (
       <div className={css.root}>
-        <Picker
-          handleSelection={this.handleSelection}
-          items={emojiList} />
+        <div className={css.wrap}>
+          <Picker
+            handleSelection={this.handleSelection}
+            items={emojiList} />
+          <Frequently
+          items={frequently} />
+          </div>
       </div>
     )
   }

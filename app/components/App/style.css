@@ -6,3 +6,8 @@ body {
   height: 100vh;
   width: 100vw;
 }
+
+.wrap {
+  padding-top: 70px;
+  margin: 0 auto;
+}
