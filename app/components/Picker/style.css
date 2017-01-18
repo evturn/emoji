@@ -1,35 +1,22 @@
 .root {
+  position: relative;
   border: 1px solid #ccc;
-  height: 350px;
-  width: 350px;
+  height: 320px;
+  width: 320px;
   margin: 0 auto;
   overflow-y: scroll;
   text-align: center;
   border-radius: 2px;
   background-color: #fff;
+  padding: 10px 15px;
+}
+
+.items {
+  text-align: left;
 }
 
 .img {
   height: 35px;
   width: 35px;
   margin: 5px;
-}
-
-.btn {
-  width: 150px;
-  height: 50px;
-  margin: 0 auto;
-  border: 0;
-  outline: none;
-  background: linear-gradient(135deg, #499bea 0%,#207ce5 100%);
-  color: #fff;
-  font-family: 'Helvetica Neue';
-  font-weight: 300;
-  font-size: 14px;
-  border-radius: 3px;
-}
-
-.more {
-  margin: 25px auto;
-  width: 100%;
 }

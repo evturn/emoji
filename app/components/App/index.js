@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
 import Picker from 'components/Picker'
-import Frequently from 'components/Frequently'
+import LoadMoreButton from 'components/LoadMoreButton'
+import FrequentlyUsed from 'components/FrequentlyUsed'
 import css from './style.css'
 
 class App extends Component {
   state = {
-    emojiMap: {},
     emojiList: [],
     used: {},
+    frequentlyUsed: [],
+    loading: true,
+    showing: [],
+    count: 0,
+    done: null,
   }
 
   componentDidMount() {
@@ -18,43 +23,59 @@ class App extends Component {
 
   parseResponse = data => {
     this.setState({
-      emojiMap: data,
+      loading: false,
       emojiList: Object.keys(data)
         .reduce((acc, x) => [{id: x, src: data[x]}].concat(acc), [])
+    }, this.loadMore)
+  }
+
+  loadMore = _ => {
+    const { count, showing, emojiList } = this.state
+    const nextIncrement = count + 200
+    const nextCount = nextIncrement > emojiList.length
+                    ? emojiList.length
+                    : nextIncrement
+    this.setState({
+      count: nextCount,
+      showing: showing.concat(emojiList.slice(count, nextCount)),
+      done: emojiList.length === nextCount,
     })
   }
 
   handleSelection = emoji => {
-    const { emojiMap, used } = this.state
-    const recorded = used[emoji.id]
+    const used = this.updateUsed(emoji)
+    const frequentlyUsed = this.updateFrequentlyUsed(used)
+    this.setState({ used, frequentlyUsed })
+  }
 
-    this.setState({
-      used: {
-        ...used,
-        [emoji.id]: {
-          ...emoji,
-          clicks: recorded ? recorded.clicks + 1 : 1
-        }
-      }
-    })
+  updateUsed = ({ id, ...rest }) => {
+    const { used } = this.state
+    const trackedEmoji = used[id]
+    const clicks = trackedEmoji ? trackedEmoji.clicks + 1 : 1
+    return {...used, [id]: {...rest, id, clicks}}
+  }
+
+  updateFrequentlyUsed = used => {
+    return Object.keys(used)
+      .reduce((acc, x) => [used[x]].concat(acc), [])
+      .sort((a, b) => b.clicks - a.clicks)
+      .filter((_, i) => i < 14)
   }
 
   render() {
-    const { emojiList, used } = this.state
-    const frequently = Object.keys(used)
-      .reduce((acc, x) => [used[x]].concat(acc), [])
-      .sort((a, b) => b.clicks - a.clicks)
-      .filter((x, i) => i < 14)
+    const { showing, frequentlyUsed, done, loading } = this.state
 
     return (
       <div className={css.root}>
         <div className={css.wrap}>
           <Picker
-            handleSelection={this.handleSelection}
-            items={emojiList} />
-          <Frequently
-          items={frequently} />
-          </div>
+            onClick={this.handleSelection}
+            loading={loading}
+            items={showing}>
+            <LoadMoreButton onClick={this.loadMore} done={done} />
+          </Picker>
+          <FrequentlyUsed items={frequentlyUsed} />
+        </div>
       </div>
     )
   }

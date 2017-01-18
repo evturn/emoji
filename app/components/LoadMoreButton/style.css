@@ -1,0 +1,19 @@
+.root {
+  margin: 25px auto;
+  width: 100%;
+  text-align: center;
+}
+
+.btn {
+  width: 150px;
+  height: 50px;
+  margin: 0 auto;
+  border: 0;
+  outline: none;
+  background: linear-gradient(135deg, #499bea 0%,#207ce5 100%);
+  color: #fff;
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
+  font-size: 14px;
+  border-radius: 3px;
+}

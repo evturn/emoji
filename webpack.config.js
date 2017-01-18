@@ -89,7 +89,7 @@ const plugins = {
     new HtmlPlugin({
       appMountId: 'app',
       template: 'app/index.ejs',
-      title: '😎',
+      title: 'Emoji Picker',
       inject: true,
     }),
     new webpack.DefinePlugin({__DEV__: true}),
@@ -101,7 +101,7 @@ const plugins = {
     new HtmlPlugin({
       appMountId: 'app',
       template: 'app/index.ejs',
-      title: '😎',
+      title: 'Emoji Picker',
       inject: true,
     }),
     new ExtractTextPlugin({filename: '[name].[contenthash].css'}),
